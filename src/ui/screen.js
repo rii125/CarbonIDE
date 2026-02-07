@@ -29,10 +29,11 @@ export function createScreen() {
         width: "100%",
         height: 1,
         style: {
-            bg: "gray",
-            fg: "black",
+            // inverse: true,
+            bg: "brightblack",
+            fg: "white",
         },
-        content: "  carbon - ready"
+        content: "   carbon - editor only mode",
     })
 
     // Quit key
