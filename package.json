@@ -2,7 +2,7 @@
   "name": "carbon-ide",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {
     "blessed": "^0.1.81"
   },
@@ -17,7 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/rii125/CarbonIDE/issues"
   },
