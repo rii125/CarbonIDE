@@ -32,7 +32,7 @@ export function createScreen() {
         border: "line",
         keys: true,
         mouse: true,
-        input: true,
+        // input: true,
         focusable: true,
         style: {
             border: { fg: "cyan" },
@@ -46,11 +46,11 @@ export function createScreen() {
             return
         }
         if (key.name === "enter") {
-            editor.handleEnter()
             return
         }
         editor.handleKeypress(ch, key)
     })
+    screen.key(["enter"], () => { editor.handleEnter() })
 
     // Statusbar
     const status = blessed.box({
@@ -67,7 +67,6 @@ export function createScreen() {
         content: "   carbon - editor only mode",
     })
 
-    screen.key(["enter"], () => { editor.handleEnter() })
     screen.key(["0"], () => {
         start.destroy()
         editorBox.show()

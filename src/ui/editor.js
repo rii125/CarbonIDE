@@ -46,8 +46,15 @@ export class Editor {
     }
 
     handleKeypress(ch, key) {
+        // Enter the question (issue:#1)
+        if (key.name === "enter") return
         // Ignore Ctrl keys
         if (key.ctrl) return
+        if (this.justEntered && ch === " ") {
+            this.justEntered = false
+            return
+        }
+        this.justEntered = false
         // Standard text input
         if (ch && ch.length === 1) {
             const line = this.buffer[this.cursor.row]
@@ -84,6 +91,7 @@ export class Editor {
     }
 
     handleEnter() {
+        this.justEntered = false
         const { row, col } = this.cursor
         const line = this.buffer[row]
         // Split line
@@ -98,5 +106,6 @@ export class Editor {
         this.cursor.col = 0
         this.render()
         this.screen.program.move(this.cursor.col + 1, this.cursor.row + 1)
+        this.justEntered = true
     }
 }
