@@ -21,6 +21,22 @@ export function createScreen() {
         content: "carbonIDE\n\nPress 'q' to quit.",
     })
 
+    // editor
+    const editor = blessed.textarea({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: "70%",
+        height: "100%",
+        border: "line",
+        keys: true,
+        mouse: true,
+        style: {
+            border: { fg: "cyan" },
+        },
+        hidden: true,
+    })
+
     // Statusbar
     const status = blessed.box({
         parent: screen,
@@ -34,6 +50,14 @@ export function createScreen() {
             fg: "white",
         },
         content: "   carbon - editor only mode",
+    })
+
+    screen.key(["enter"], () => {
+        start.hide()
+        editor.show()
+        status.show()
+        editor.focus()
+        screen.render()
     })
 
     // Quit key
