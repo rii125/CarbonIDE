@@ -18,6 +18,9 @@
   "author": "",
   "license": "ISC",
   "type": "module",
+  "bin": {
+    "crb": "./src/index.js"
+  },
   "bugs": {
     "url": "https://github.com/rii125/CarbonIDE/issues"
   },
