@@ -1,4 +1,4 @@
-import blessed from "blessed"
+import blessed from "neo-blessed"
 
 export function createScreen() {
     const screen = blessed.screen({
@@ -31,6 +31,8 @@ export function createScreen() {
         border: "line",
         keys: true,
         mouse: true,
+        inputOnFocus: true,
+        multiline: true,
         style: {
             border: { fg: "cyan" },
         },
@@ -53,7 +55,7 @@ export function createScreen() {
     })
 
     screen.key(["enter"], () => {
-        start.hide()
+        start.destroy()
         editor.show()
         status.show()
         editor.focus()
