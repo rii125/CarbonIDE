@@ -1,4 +1,5 @@
 import blessed from "neo-blessed"
+import { Editor } from "./editor.js"
 
 export function createScreen() {
     const screen = blessed.screen({
@@ -22,7 +23,7 @@ export function createScreen() {
     })
 
     // editor
-    const editor = blessed.textarea({
+    const editorBox = blessed.box({
         parent: screen,
         top: 0,
         left: 0,
@@ -31,12 +32,24 @@ export function createScreen() {
         border: "line",
         keys: true,
         mouse: true,
-        inputOnFocus: true,
-        multiline: true,
+        input: true,
+        focusable: true,
         style: {
             border: { fg: "cyan" },
         },
         hidden: true,
+    })
+    const editor = new Editor(screen, editorBox)
+    screen.on("keypress", (ch, key) => {
+        if (key.name === "backspace") {
+            editor.handleBackspace()
+            return
+        }
+        if (key.name === "enter") {
+            editor.handleEnter()
+            return
+        }
+        editor.handleKeypress(ch, key)
     })
 
     // Statusbar
@@ -54,13 +67,20 @@ export function createScreen() {
         content: "   carbon - editor only mode",
     })
 
-    screen.key(["enter"], () => {
+    screen.key(["enter"], () => { editor.handleEnter() })
+    screen.key(["0"], () => {
         start.destroy()
-        editor.show()
-        status.show()
-        editor.focus()
+        editorBox.show()
+        editorBox.focus()
         screen.render()
+        editor.render()
     })
+
+    // Delegate arrow keys to the editor
+    screen.key(["left"], () => editor.moveLeft())
+    screen.key(["right"], () => editor.moveRight())
+    screen.key(["up"], () => editor.moveUp())
+    screen.key(["down"], () => editor.moveDown())
 
     // Quit key
     screen.key(["q", "C-c"], () => process.exit(0))
