@@ -3,11 +3,11 @@ import blessed from "blessed"
 export function createScreen() {
     const screen = blessed.screen({
         smartCSR: true,
-        title: "carbon",
+        title: "carbonIDE",
     })
 
     // Main window
-    const box = blessed.box({
+    const start = blessed.box({
         parent: screen,
         top: 0,
         left: 0,
