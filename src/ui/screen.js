@@ -1,5 +1,5 @@
 import blessed from "neo-blessed"
-import { Editor } from "./editor.js"
+import { Editor } from "../core/editor.js"
 
 export function createScreen() {
     const screen = blessed.screen({
